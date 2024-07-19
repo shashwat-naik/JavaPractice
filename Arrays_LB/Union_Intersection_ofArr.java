@@ -1,5 +1,5 @@
 // Union Part
-import java.util.ArrayList;
+/* import java.util.ArrayList;
 import java.util.List;
 
 public class Union_Intersection_ofArr {
@@ -45,7 +45,7 @@ public class Union_Intersection_ofArr {
         }
         System.out.println(result);
     }
-}
+} */
 
 // Intersection
 import java.util.ArrayList;

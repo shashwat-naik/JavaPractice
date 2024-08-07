@@ -25,7 +25,7 @@ public class Recursion_lvl2 {
 
     public static void findOccurance(String str, int index, char ele) {
         if (index == str.length()) {
-            System.out.print("1st occ: " + first + " | 2nd occ: " + last);
+            System.out.println("1st occ: " + first + " | 2nd occ: " + last);
             return;
         }
         char currChar = str.charAt(index);
@@ -36,6 +36,53 @@ public class Recursion_lvl2 {
                 last = index;
         }
         findOccurance(str, index + 1, ele);
+    }
+
+    public static boolean incrSort(int[] arr, int idx) {
+        if (idx == arr.length - 1) {
+            return true;
+        }
+        if (arr[idx] < arr[idx + 1]) {
+            return incrSort(arr, idx + 1);
+        } else {
+            return false;
+        }
+    }
+
+    public static void moveX(String str, int idx, int count, String newStr) {
+        if (idx == str.length()) {
+            for (int i = 0; i < count; i++) {
+                newStr += 'x';
+            }
+            System.out.println(newStr);
+            return;
+        }
+
+        char currChar = str.charAt(idx);
+        if (currChar == 'x') {
+            count++;
+            moveX(str, idx + 1, count, newStr);
+        } else {
+            newStr += currChar;
+            moveX(str, idx + 1, count, newStr);
+        }
+    }
+
+    public static boolean[] map = new boolean[26];
+
+    public static void removeDup(String str, int idx, String newStr) {
+        if (idx == str.length()) {
+            System.out.println(newStr);
+            return;
+        }
+        char currChar = str.charAt(idx);
+        if (map[currChar - 'a'] == true)
+            removeDup(str, idx + 1, newStr);
+        else {
+            newStr += currChar;
+            map[currChar - 'a'] = true;
+            removeDup(str, idx + 1, newStr);
+        }
     }
 
     public static void main(String[] args) {
@@ -50,5 +97,14 @@ public class Recursion_lvl2 {
 
         String strI = "abaacdaefaah";
         findOccurance(strI, 0, 'a');
+
+        int[] arr = { 1, 4, 5, 7 };
+        System.out.println(incrSort(arr, 0));
+
+        String strII = "axbcxxd";
+        moveX(strII, 0, 0, "");
+
+        String strIII = "abbccda";
+        removeDup(strIII, 0, "");
     }
 }

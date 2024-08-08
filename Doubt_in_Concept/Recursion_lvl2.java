@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Recursion_lvl2 {
@@ -75,7 +76,9 @@ public class Recursion_lvl2 {
             System.out.println(newStr);
             return;
         }
+
         char currChar = str.charAt(idx);
+
         if (map[currChar - 'a'] == true)
             removeDup(str, idx + 1, newStr);
         else {
@@ -85,12 +88,57 @@ public class Recursion_lvl2 {
         }
     }
 
-    public static void main(String[] args) {
-        // System.out.print("Enter the number: ");
-        // Scanner sc = new Scanner(System.in);
-        // int x = sc.nextInt();
+    public static void subseq(String str, int idx, String newStr) {
 
-        // towerHanoi(x, "S", "H", "D");
+        if (idx == str.length()) {
+            System.out.print(newStr + " ");
+            return;
+        }
+
+        char currChar = str.charAt(idx);
+        // getting involved
+        subseq(str, idx + 1, newStr + currChar);
+        // for non-involvement
+        subseq(str, idx + 1, newStr);
+    }
+
+    public static void uniqSubseq(String str, int idx, String newStr, HashSet<String> allSeq) {
+        if (idx == str.length()) {
+            if (allSeq.contains(newStr))
+                return;
+            else {
+                System.out.print(newStr + " ");
+                allSeq.add(newStr);
+                return;
+            }
+        }
+        char currChar = str.charAt(idx);
+        uniqSubseq(str, idx + 1, newStr + currChar, allSeq);
+        uniqSubseq(str, idx + 1, newStr, allSeq);
+    }
+
+    public static String[] keypad = { " ", ".", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+
+    public static void comb(String str, int idx, String combination) {
+
+        if (idx == str.length()) {
+            System.out.print(combination + " ");
+            return;
+        }
+        char currChar = str.charAt(idx);
+        String mapping = keypad[currChar - '0'];
+
+        for (int i = 0; i < mapping.length(); i++) {
+            comb(str, idx + 1, combination + mapping.charAt(i));
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.print("Enter the number: ");
+        Scanner sc = new Scanner(System.in);
+        int x = sc.nextInt();
+
+        towerHanoi(x, "S", "H", "D");
 
         String str = "abcd";
         printRev(str, str.length() - 1);
@@ -106,5 +154,17 @@ public class Recursion_lvl2 {
 
         String strIII = "abbccda";
         removeDup(strIII, 0, "");
+
+        String strIV = "abc";
+        subseq(strIV, 0, "");
+        System.out.println();
+
+        String strV = "aaa";
+        HashSet<String> allSeq = new HashSet<>();
+        uniqSubseq(strV, 0, "", allSeq);
+        System.out.println();
+
+        String strVI = "23";
+        comb(strVI, 0, "");
     }
 }

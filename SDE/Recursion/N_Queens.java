@@ -43,12 +43,12 @@ public class N_Queens {
     }
 
     public static List<String> construct(char[][] board) {
-        List<String> res = new LinkedList<>();
+        List<String> result = new LinkedList<>();
         for (int i = 0; i < board.length; i++) {
             String s = new String(board[i]);
-            res.add(s);
+            result.add(s);
         }
-        return res;
+        return result;
     }
 
     public static void main(String[] args) {
